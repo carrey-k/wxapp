@@ -7,7 +7,7 @@ let app = express();
 // Insert metadata
 let appId = "wx2a462c507367ea26"; // Insert your appId
 let appsecret = "ded2125bde108070ed8509abebbc942a"; // insert your appsecret
-let url = "http://hello-world-kck.azurewebsites.net/"; // insert host url, e.g. http://wxapp.azurewebsites.net/
+let url = "http://wxapp-kck.azurewebsites.net/"; // insert host url, e.g. http://wxapp.azurewebsites.net/
 let nonceStr = "test"; // insert any string
 
 // define an interface containing params for wx.config

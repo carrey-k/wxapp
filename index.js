@@ -1,5 +1,7 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 const express = require("express");
 const request = require("request");
 const sha1 = require("sha1");
@@ -7,7 +9,7 @@ let app = express();
 // Insert metadata
 let appId = "wx2a462c507367ea26"; // Insert your appId
 let appsecret = "ded2125bde108070ed8509abebbc942a"; // insert your appsecret
-let url = "http://hello-world-kck.azurewebsites.net/"; // insert host url, e.g. http://wxapp.azurewebsites.net/
+let url = "http://wxapp-kck.azurewebsites.net/"; // insert host url, e.g. http://wxapp.azurewebsites.net/
 let nonceStr = "test"; // insert any string
 // handshake with WeChat server and get signature for wx.config
 function getWXConfig(cb) {
@@ -15,27 +17,27 @@ function getWXConfig(cb) {
         appId +
         "&secret=" +
         appsecret, (err, res, body) => {
-        request.get("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" +
-            JSON.parse(body).access_token +
-            "&type=jsapi", (err, res, body) => {
-            let ticket = JSON.parse(body).ticket;
-            let o = {
-                appId: appId,
-                nonceStr: nonceStr,
-                timestamp: new Date().getTime() / 1000 + "",
-                signature: ""
-            };
-            o.signature = sha1("jsapi_ticket=" +
-                ticket +
-                "&noncestr=" +
-                o.nonceStr +
-                "&timestamp=" +
-                o.timestamp +
-                "&url=" +
-                url).toString();
-            cb(o);
+            request.get("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" +
+                JSON.parse(body).access_token +
+                "&type=jsapi", (err, res, body) => {
+                    let ticket = JSON.parse(body).ticket;
+                    let o = {
+                        appId: appId,
+                        nonceStr: nonceStr,
+                        timestamp: new Date().getTime() / 1000 + "",
+                        signature: ""
+                    };
+                    o.signature = sha1("jsapi_ticket=" +
+                        ticket +
+                        "&noncestr=" +
+                        o.nonceStr +
+                        "&timestamp=" +
+                        o.timestamp +
+                        "&url=" +
+                        url).toString();
+                    cb(o);
+                });
         });
-    });
 }
 app.engine(".html", require("ejs").__express); // set up ejs as view engine
 app.set("views", __dirname + "/views"); // set views dir
